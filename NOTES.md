@@ -2,8 +2,9 @@
 
 ## Notes
 
-1.
-talk about percents, we can set diffent for buy/sell
+1. percents
+
+talk about percents, we can set different for buy/sell
 it is more easy for contract if it only use integer numbers
 
 for example MRI only has SELL taxes
@@ -23,7 +24,8 @@ only take fees on buys/sells not wallet transfers
 
 totalSupply = 1 000 000 000
 
-2.
+2. wallets
+
 need prizepot wallet
 need dev wallet
 
@@ -31,9 +33,9 @@ need dev wallet
 ## Internal notes
 
 set uniswap v2 router
+set swapTokensAtAmount 
 
-swapTokensAtAmount 
-
+```
 limitsInEffect -> true
   Check tradingActive
   Check transferDelayEnabled
@@ -45,4 +47,5 @@ limitsInEffect -> true
   disableTransferDelay() -> transferDelayEnabled false
 
   updateSwapEnabled() -> swapEnabled (VALUE)
+```
 
