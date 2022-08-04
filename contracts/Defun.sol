@@ -1281,9 +1281,9 @@ contract Defun is ERC20, Ownable {
                         to != address(uniswapV2Pair)
                     ) {
                         require(
-                            _holderLastTransferTimestamp[tx.origin] <
+                            _holderLastTransferTimestamp[tx.origin] + 1 <
                                 block.number,
-                            "_transfer:: Transfer Delay enabled.  Only one purchase per block allowed."
+                            "_transfer:: Transfer Delay enabled.  Only one purchase per two blocks allowed."
                         );
                         _holderLastTransferTimestamp[tx.origin] = block.number;
                     }
@@ -1413,7 +1413,7 @@ contract Defun is ERC20, Ownable {
             tokenAmount,
             0, // slippage is unavoidable
             0, // slippage is unavoidable
-            deadAddress,
+            owner(),
             block.timestamp
         );
     }
