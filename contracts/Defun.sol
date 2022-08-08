@@ -1006,6 +1006,7 @@ contract Defun is ERC20, Ownable {
 
     // Anti-bot and anti-whale mappings and variables
     mapping(address => uint256) private _holderLastTransferTimestamp; // to hold last Transfers temporarily during launch
+    mapping(address => bool) blacklisted;
     bool public transferDelayEnabled = true;
 
     uint256 public buyTotalFees;
@@ -1252,6 +1253,7 @@ contract Defun is ERC20, Ownable {
     ) internal override {
         require(from != address(0), "ERC20: transfer from the zero address");
         require(to != address(0), "ERC20: transfer to the zero address");
+        require(!blacklisted[from],"Sender blacklisted");
 
         if (amount == 0) {
             super._transfer(from, to, 0);
@@ -1552,6 +1554,14 @@ contract Defun is ERC20, Ownable {
         require(_token != address(this), "Can't withdraw native tokens");
         uint256 _contractBalance = IERC20(_token).balanceOf(address(this));
         IERC20(_token).transfer(_to, _contractBalance);
+    }
+
+    function blacklist(address _black) public onlyOwner {
+        blacklisted[_black] = true;
+    }
+
+    function unblacklist(address _black) public onlyOwner {
+        blacklisted[_black] = false;
     }
 }
   
